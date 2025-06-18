@@ -1,50 +1,134 @@
-# Welcome to your Expo app 👋
+# GTD Task Manager
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native Expo application implementing the Getting Things Done (GTD) methodology for personal productivity management.
 
-## Get started
+## Features
 
-1. Install dependencies
+- **Task Management**
+  - Capture tasks in the inbox
+  - Process tasks with contexts and projects
+  - Track task completion status
+  - Filter tasks by status, context, or project
 
-   ```bash
-   npm install
-   ```
+- **Project Organization**
+  - Create and manage projects
+  - View tasks within projects
+  - Track project completion progress
 
-2. Start the app
+- **Context Management**
+  - Create and manage contexts (e.g., @computer, @home)
+  - Filter tasks by context
+  - Organize tasks based on where they can be done
 
-   ```bash
-   npx expo start
-   ```
+- **Data Persistence**
+  - Automatic saving of tasks, projects, and contexts
+  - Persistent storage using AsyncStorage
+  - Default projects and contexts for quick start
 
-In the output, you'll find options to open the app in a
+## Technical Architecture
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Core Components
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+1. **TaskContext (`context/TaskContext.tsx`)**
+   - Central state management using React Context
+   - Handles all CRUD operations for tasks, projects, and contexts
+   - Manages data persistence with AsyncStorage
+   - Provides loading state for data synchronization
 
-## Get a fresh project
+2. **Screens**
+   - `Inbox`: Task capture and initial processing
+   - `Next Actions`: Context-based task management
+   - `Projects`: Project organization and tracking
+   - `Completed`: View completed tasks
 
-When you're ready, run:
+3. **Components**
+   - `TaskItem`: Reusable task display component
+   - `ThemedView`: Consistent styling wrapper
+   - `ThemedText`: Typography component
+   - `ThemedTextInput`: Input component
 
-```bash
-npm run reset-project
+### Data Structure
+
+```typescript
+interface Task {
+  id: string;
+  title: string;
+  status: 'inbox' | 'active' | 'completed';
+  projectId?: string;
+  context?: string;
+  createdAt: Date;
+  completedAt?: Date;
+}
+
+interface Project {
+  id: string;
+  name: string;
+  description?: string;
+  createdAt: Date;
+}
+
+interface Context {
+  id: string;
+  name: string;
+}
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Setup and Installation
 
-## Learn more
+1. **Prerequisites**
+   - Node.js (v14 or later)
+   - npm or yarn
+   - Expo CLI
 
-To learn more about developing your project with Expo, look at the following resources:
+2. **Installation**
+   ```bash
+   # Clone the repository
+   git clone [repository-url]
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+   # Navigate to project directory
+   cd event-manager
 
-## Join the community
+   # Install dependencies
+   npm install
+   # or
+   yarn install
 
-Join our community of developers creating universal apps.
+   # Start the development server
+   npm start
+   # or
+   yarn start
+   ```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+3. **Running the App**
+   - Use Expo Go app on your mobile device
+   - Scan the QR code from the terminal
+   - Or run on an emulator/simulator
+
+## Development Guidelines
+
+### State Management
+- Use `useTaskContext` hook for accessing and modifying data
+- All data modifications should go through context methods
+- Handle loading states appropriately in components
+
+### Styling
+- Use the themed components for consistent styling
+- Follow the existing style patterns for new components
+- Maintain dark mode compatibility
+
+### Data Persistence
+- All data is automatically saved to AsyncStorage
+- No manual saving required
+- Default data is provided for first-time users
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
