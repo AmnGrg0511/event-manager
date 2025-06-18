@@ -103,7 +103,6 @@ const ProcessTaskSheet: React.FC<ProcessTaskSheetProps> = ({
               selectedValue={selectedContext}
               onValueChange={handleContextChange}
               style={[styles.picker, { color: textColor, backgroundColor: pickerBackgroundColor }]}
-              itemStyle={{ color: textColor, backgroundColor: pickerItemBackgroundColor }}
               mode="dropdown"
             >
               <Picker.Item 
